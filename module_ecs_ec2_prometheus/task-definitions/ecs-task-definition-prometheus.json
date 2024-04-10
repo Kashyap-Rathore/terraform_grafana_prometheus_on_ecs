@@ -1,0 +1,30 @@
+[
+    {
+        "name": "${prometheus_container_name}",
+        "image": "${prometheus_image_url}",
+        "memory": 256,
+        "cpu": 256,
+        "essential": true,
+        "portMappings": [
+          {
+            "hostPort": ${prometheus_container_container_port},
+            "containerPort": ${prometheus_container_host_port},
+            "protocol": "tcp"
+          }
+        ],
+        "mountPoints": [
+            {
+                "containerPath": "/prometheus",
+                "sourceVolume": "${prometheus_source_volume_name}"
+            }
+        ],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "${prometheus_log_group_name}",
+                "awslogs-region": "${prometheus_log_group_region}",
+                "awslogs-stream-prefix": "${prometheus_log_group_stream_prefix}"
+            }
+        }
+    }
+]
